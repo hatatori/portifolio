@@ -1,0 +1,282 @@
+<style>
+	*{transition: 0.2s;max-width: 100%;padding: 0;margin: 0}
+	body{
+		font-family: "calibri";
+		background: #222;
+		color:white;
+	}
+
+	.bblack{background-color: black}
+	.bwhite{background-color: white}
+
+	.bloco{
+		position: relative;
+		display: inline-block;
+		width: 185;
+		height: 300;
+		background-color: black;
+		box-shadow: 0px 0px 5px black;
+	}
+
+	.bloco p{
+		z-index: 1;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		color:white;
+		/*background-color: red;*/
+		text-transform: capitalize;
+		/*padding: 10 0;*/
+	}
+
+	.bloco:hover{
+		box-shadow: 0px 0px 10px black;
+	}
+
+
+
+	.bloco::before{
+		content: attr(data-link);
+		position: absolute;
+		top: 10;
+		left: 0;
+		background-color: #2977d6;
+		color: white;
+		padding: 5;
+		border-radius: 2px;
+	}
+
+	.bloco::after{
+		content: attr(data-nota);
+		position: absolute;
+		bottom: 30;
+		right: 10;
+		background-color: black;
+		color: white;
+		padding: 3;
+		border-radius: 3px;
+		z-index: 1;
+	}
+
+	.descricao{
+		width: 100%;
+		height: 30;
+		overflow: hidden;
+		position: absolute;
+		bottom: 0;
+		padding: 10;
+	}
+
+	.tcenter{text-align: center;}
+	.center{display: flex;justify-content: center;align-items: center;}
+	.mauto{margin:auto;}
+
+	.p10{padding: 10}
+
+	.w100p{width: 100%;}
+	.h100p{height: 100%;}
+
+	.w800{width: 800}
+	.w1000{width: 1000}
+
+	#conteudo div{display: inline-block; margin:7 }
+
+	#janelaout{
+		background-color: rgba(0,0,0,0.5);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		display: none;
+	}
+
+	#janelain{width: 950;height: 400}
+
+	#janelain{background-color: black;border-radius: 10px}
+
+
+	#janelain iframe{display: inline-block;float: left;}
+
+	#janelain div{
+		overflow: hidden;
+		width: 300;
+		height: 100%;
+		padding: 10;
+		overflow-y: scroll;
+		display: inline-block;
+		color: white;
+		text-align: left;
+		background-color: rgba(0,0,0,0.7)
+	}	
+	
+
+	.linedown{border-bottom: solid 2px red;}
+	.capa{
+		width: 1000;
+		height: 200;
+		margin:auto;
+		margin-top:10;
+		background:url("imgs/capa.jpg") 50% 100%;
+		border-radius: 10px 10px 0px 0px
+	}
+
+	.rodape{height: 50;background-color: rgba(0,0,0,0.2);margin:10 0;}
+
+	#botoes button{
+		padding: 10;
+		margin: 5;
+		background:linear-gradient(#202020,#222222);
+		color:#eee;
+		border:solid 1px rgba(0,0,0,0.2);
+		min-width: 35;
+	}
+	#botoes button:hover{
+		border:solid 1px orangered;
+		cursor: pointer;
+	}
+
+	#menu{padding: 10;background-color: rgba(0,0,0,0.5);}
+	a{color: white;}
+	#card{
+		background-color: #222;
+		width: 250;
+		height:100;
+		border-bottom: 10px solid #555;
+		box-shadow: 0px 0px 10px black;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		display: none;	
+		padding: 5;
+	}
+
+	#closee{
+		position: absolute;
+		top: 10;
+		right: 20;
+		cursor: pointer;
+	}
+
+</style>
+
+<div class="mauto w1000">
+	<div id="menu" class="mauto tcenter">HOME | <span id='info'>CONTATOS</span></div>
+	<div class="capa"></div>
+
+	<div id="card" class="center">
+		<p id="closee">x</p>
+		<table>
+			<tr>
+				<td><img src='filmes/perfil.jpg' height="50" style="padding: 5"></td>
+
+				<td>
+					E-mail: kcireh.i@gmail.com<br>
+					<a target="_blank" href='https://www.facebook.com/hatatori.nitsukawa'>Facebook</a> | 
+					<a target="_blank" href='https://github.com/hatatori/'>Github</a>
+					<br>
+					web | sql
+				</td> 
+
+			</tr>
+			
+		</table>
+	</div>
+
+	<p class="p10 linedown">Filmes - Site demonstrativos</p>
+	<div class="mauto w1000 tcenter" id="conteudo"></div>
+
+	<div id="botoes" class="tcenter"></div>
+	<div class="rodape center">
+		Todos os direitos reservados
+	</div>
+
+	<div id="janelaout" class=" w100p h100p center">
+		<div id="janelain" class="tcenter">
+			<iframe id="ifr" width="600" height="400" src="https://www.youtube.com/embed/3dYDOzV1MEA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; autoplay; gyroscope; picture-in-picture" allowfullscreen></iframe>	
+			<div>
+				★★★
+				<br><br>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nisi nulla, maximus eget consequat scelerisque, venenatis tincidunt sem. Suspendisse et ultrices justo, ac fringilla nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius libero ut elit blandit aliquam. Mauris accumsan lacus cursus sapien fringilla pharetra. Nam id justo vitae erat elementum volutpat. Sed eget tincidunt elit. Ut sapien urna, egestas a congue quis, sagittis vitae erat. Pellentesque lobortis, erat non blandit viverra, justo nisl varius augue, quis rutrum libero nisl sed sem. Cras at enim arcu.
+				<br><br>
+				Nam vitae metus ut libero ultrices laoreet ac vel nunc. Nullam dapibus leo ultricies consequat placerat. Vivamus congue gravida lacus, eget rhoncus elit tincidunt et. Aenean feugiat dolor porttitor mauris tristique convallis. Mauris at turpis a dolor cursus ornare sit amet sit amet metus. Nulla dapibus efficitur lacus, vel laoreet ante porta non. Vivamus hendrerit neque et pellentesque fringilla. In placerat sollicitudin sem at semper. Curabitur eu malesuada odio. Curabitur placerat eget tellus ut imperdiet. Quisque imperdiet blandit efficitur.
+				<br><br>
+				Etiam tempus ac purus ut placerat. Praesent dapibus dui vel molestie consequat. Suspendisse tristique dignissim elit interdum suscipit. Aliquam sapien sem, commodo non efficitur sed, vestibulum id dolor. Vestibulum facilisis sapien ut lacinia dignissim. Curabitur fringilla dapibus magna, a eleifend sapien dictum sed. Phasellus vitae tincidunt elit, eu condimentum est.
+				<br><br>
+				Vestibulum at turpis a dui viverra scelerisque. Sed massa orci, ultrices eget lorem id, pharetra iaculis purus. Ut sodales nibh aliquet, vulputate mi eu, suscipit nulla. Aliquam tincidunt gravida tortor eu pharetra. Mauris consectetur massa eu mauris tempus, eu placerat diam consequat. Aenean dictum elit ut lobortis ultrices. In elementum interdum odio, sed semper diam suscipit eu. Duis enim tellus, aliquam eu libero egestas, malesuada bibendum dui. Nam ac lorem euismod, pellentesque dui vitae, iaculis enim. Duis mauris leo, ornare a mauris eu, condimentum mattis leo. Nam semper ac erat non molestie. Ut tempus, quam eget efficitur imperdiet, massa felis varius lorem, vel aliquam sem tellus vitae est. Sed nisl elit, sollicitudin quis nibh sed, bibendum sollicitudin ipsum. Integer lobortis ornare neque, eget finibus justo semper sit amet. In hac habitasse platea dictumst. Nulla facilisi.
+				<br><br>
+				Aenean vitae lobortis leo. Donec commodo laoreet massa vitae ultricies. Cras ut consequat tortor, vel vulputate ante. Donec tristique, ligula eget ornare sodales, urna metus blandit nulla, et scelerisque magna dui tristique est. Cras dapibus nibh at mi ultrices, vel tempor velit scelerisque. Sed lobortis lacus in ipsum tempor, vitae semper enim cursus. Proin vehicula ante eget urna viverra, nec fermentum nulla egestas. Suspendisse facilisis nibh justo, vel scelerisque ex tincidunt vitae. Etiam eget scelerisque sem. Vivamus eget semper metus. In sed eros sit amet mauris aliquet gravida.
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	for(j=1;j<=10;j++){
+		botoes.innerHTML += "<button>"+j+"</button>"
+		if(j==10)
+			botoes.innerHTML += "<button>...</button>"
+	}
+
+	info.onclick=function(e){
+		x = e.clientX
+		y = e.clientY
+
+		card.style.top=y
+		card.style.left=x
+		card.style.display="flex"
+
+
+		closee.onclick=function(e){
+			card.style.display="none"
+		}
+	}
+
+
+
+
+	l = "3dYDOzV1MEA,Qbxr4xYvr2c,CWpPqBFAk-s,XenTM_C9fxM,3F8_b4uw6Pg,e-kPf-n4Mto,lb5UsiTQRMg,B8nX_C36084,PgrmbRID0eY,oMHwRal-AR8,90bG43JcwRE,HKXoW8FISj4,RFinNxS5KN4,oblZrnM9p6A,8NURuV5GmPY"
+	l = l.split(",")
+
+	f = "a outra filha,a rebeliao,alita,dark web,maquinas mortais,miss balada,nao olhe,o menino rei,os vingadores ultimato,polar,aquaman,creed 2,jurassic world,bleach,os incriveis 2"
+	f = f.split(",")
+
+	f = f.map(g=>{return { nota:(Math.random()*10).toFixed(2), src:g }})
+	a=0
+	f.forEach(e=>{
+		conteudo.innerHTML += "<div data-p="+(a++)+" class='bloco' data-link='1080' data-nota='★ "+e.nota+"''><img src='filmes/"+e.src+".jpg'><p>"+e.src+"</p></div>"
+	})
+
+
+	bloco = document.getElementsByClassName('bloco')
+
+	for(i=0;i<bloco.length;i++){
+		bloco[i].onclick=function(e){
+			janelaout.style.display="flex"
+			pos = this.dataset.p
+
+			ifr.src="https://www.youtube.com/embed/"+l[pos]
+		}
+	}
+
+	janelaout.onclick=function(){
+		this.removeAttribute("style")
+		ifr.src=''
+	}
+	janelain.onclick=function(e){
+		e.stopPropagation()
+	}
+
+	if(window.location.href.match(/#\d+/g)[0]){
+		bloco[window.location.href.match(/#(\d+)/i)[1]].click()
+	}
+
+	
+
+
+
+		// https://www.youtube.com/embed/3dYDOzV1MEA
+
+	</script>
