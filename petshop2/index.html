@@ -1,0 +1,379 @@
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		transition: 1s;
+
+	}
+
+	body{
+		font-family: monospace;
+		background-image: url("imgs/fundo.jpg")
+	}
+
+	.geral{
+		max-width: 100%;
+		width: 1000;
+		margin: auto;
+	}
+
+	.fundo{
+		width: 958px;
+		max-width: 100%;
+		height: 254px;
+		display: inline-block;
+		background-color: black;
+		display: inline-grid;
+		position: relative;
+	}
+
+	.fundo-ativo{
+		background-color: blue;
+	} 
+
+	.fundo > div{
+		width: 958px;
+		max-width: 100%;
+		height: 254px;
+		box-shadow: inset 0px 0px 10px rgba(0,0,0.05);
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-size: auto 100%;
+	}
+
+	.op0{opacity: 0}
+	.op1{opacity: 1}
+
+	.img1{background-image: url("imgs/1.jpg")}
+	.img2{background-image: url("imgs/2.jpg")}
+	.img3{background-image: url("imgs/3.jpg")}
+	.img4{background-image: url("imgs/4.jpg")}
+
+	#topo{
+		padding: 10;
+		background-color: #bdb23e;
+		color: white;
+		display: flex;
+		justify-content: space-between;
+		margin: auto;
+		max-width: 100%;
+	}	
+
+	.grid-1-2{
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+	}
+
+	.menutopo{
+		padding: 10;
+		background-color: #f4f3e1;
+		/*background-color: red;*/
+		display: flex;
+		/*justify-content: space-between;*/
+
+		flex-wrap: wrap;
+	}
+
+
+
+	.menutopo img{
+		max-width: 100%;
+	}
+
+
+	.menu-list-1{
+		/*list-style: none;
+		display: inline-flex;*/
+		max-width: 100%;
+	}
+
+	.menu-list-1 li{
+		padding-right: 10;
+		display: inline
+	}
+	.menu-list-1 li:after{
+		content: ">";
+		margin-right: 10;
+		margin-left: 20;
+		vertical-align: ;
+		color: rgba(0,0,0,0.3);
+		/*background-color: red;*/
+	}
+
+	.menu-list-1 li:last-child:after{
+		display: none;
+	}
+
+
+	hr{
+		overflow:hidden;
+		border: none;
+		border-bottom: 1px rgba(0,0,0,0.1) solid;
+		padding-bottom: 10;
+	}
+
+
+	.vmiddle{vertical-align: middle;}
+
+	.flex{
+		display: inline-flex;
+		flex-wrap: wrap;
+		/*justify-content: flex-end;*/
+	}
+
+	.centrao{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-width: 100%;
+	}
+
+	.loja{
+		/*background-color: red;*/
+		/*background-color: white*/
+
+	}
+
+	.col-1-3{display: grid;grid-template-columns: 1fr 3fr;}
+
+	.menu-estilo-1{
+		list-style: none;
+		padding: 20;
+	}
+
+	.menu-estilo-1 h2:first-child{
+		color:#bdb23e;
+		padding-bottom: 5;
+		border-bottom: dotted 1px #bdb23e;
+		margin-bottom: 5;
+	}
+
+	
+
+	.mtop10{margin-top: 10px;}
+	.mauto{margin: auto}
+
+	.bwhite{background-color: white;}
+
+	.dflex{display: flex;flex-wrap: wrap;}
+	.dgrid{display: grid;}
+
+	.rodape{
+		background-color: #272727;
+		color: white;
+		padding: 20;
+		margin-bottom: 10px;
+	}
+
+	.loja img{
+		max-width: 100;
+		max-height: 100;
+	}
+
+	.loja > div{ 
+		margin-bottom: 10px;
+		padding: 10;
+		margin:10;
+		/*text-align: center;*/
+	}
+
+	
+
+	.loja h3{
+		color: #bdb23e;
+		border-bottom: solid 1px #bdb23e;
+		padding: 15 0;
+		text-transform: uppercase;
+	}
+
+	
+
+	.n-col-4{
+		display: grid;
+		grid-template-columns: repeat(4,1fr);
+	}
+
+	.n-col-5{
+		display: grid;
+		/*grid-template-columns: repeat(5,1fr);*/
+		grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
+	}
+
+
+	.n-col-3{
+		display: grid;
+		grid-template-columns: repeat(3,1fr);
+	}
+
+	.gap-10{grid-gap: 10px}
+
+	.sombra-1{
+		box-shadow: 0px 0px 3px rgba(0,0,0,0.5)
+	}
+
+	.j-center{
+		justify-items: center;	
+	}
+
+	@media only screen and (max-width: 700px) {
+	/*	.menu-estilo-1 {
+			display: none;
+		}
+
+		.col-1-3{
+			display: flex;
+			padding: 0;
+			}*/
+
+			.col-1-3{display: block;grid-template-columns: 1fr 3fr;}
+
+			.menu-list-1 li{
+				width: 100%;
+				/*background-color: blue;*/
+				display: block;
+				padding: 10;
+				text-align: left;
+				
+				margin: auto;
+			}
+
+			.n-col-4{
+				display: grid;
+				grid-template-columns: repeat(2,1fr);
+
+
+			}
+
+		}
+
+	</style>
+
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+
+	<div class="geral">
+
+		<div class="mtop10"></div>
+
+		<div id="topo">
+			<div>alguma coisa</div>
+			<div>conta 1 | conta 2</div>
+		</div>
+
+		<div class="menutopo">
+			<div>
+				<img src='imgs/logo.jpg' >
+			</div>
+
+			<div class="mauto">
+				<div>
+					CUSTOMERS SUPPORT
+					<hr>
+					<br>
+					<ul class="menu-list-1">
+						<li>HOME</li>
+						<li>SHOP</li>
+						<li>BLOG</li>
+						<li>SLIDERS</li>
+						<li>PAGES</li>
+						<li>CONTATO</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+
+
+		<div class="fundo" id="fundoAlbum">
+			<div class="img1 op1"></div>
+			<div class="img2 op0"></div>
+			<div class="img3 op0"></div>
+			<div class="img4 op0"></div>
+		</div>
+
+		
+
+		<div class="loja col-1-3 bwhite">
+			<div>
+				<ul class="menu-estilo-1">
+					<li><h2>Gatos</h2></li>
+					<li>Ração</li>
+					<li>Bolinha</li>
+					<li>Osso</li>
+					<li>Mordedor</li>
+					<li>Bolsa</li>
+					<li>Coleiras</li>
+					<li>Gatos</li>
+				</ul>
+
+				<ul class="menu-estilo-1">
+					<li><h2>Cachorros</h2></li>
+					<li>Ração</li>
+					<li>Bolinha</li>
+					<li>Osso</li>
+					<li>Mordedor</li>
+					<li>Bolsa</li>
+					<li>Coleiras</li>
+					<li>Gatos</li>
+				</ul>
+			</div>
+
+
+			<div class="loja" id="loja1">
+
+
+			</div>
+
+			
+		</div>
+
+
+
+		<div class="rodape">
+			alguma coisa
+		</div>
+
+	</div>
+
+	<script>
+		function trocaop(a){
+			fundoAlbum.children[a].classList.toggle("op0")
+			fundoAlbum.children[a].classList.toggle("op1")
+		}
+
+		a = 0
+		setInterval(()=>{
+			a++
+
+			trocaop(a%4)
+			trocaop((a-1)%4)
+
+		},4000)
+
+	// loja
+
+	function addloja(pasta){
+		k = ""
+		// pasta = "bolinha"
+
+		for(i=1;i<=5;i++){
+			nome = pasta+" "+i
+			valor = Math.random()*600
+			valor = valor.toFixed(2)
+			parcela = (parseInt(valor)/6).toFixed(2)
+			k += "<div><img src='loja/"+pasta+"/"+i+".png'><p>"+nome+"</p><h2>R$ "+valor+"</h2><p>6x de R$ "+parcela+" sem juros</p></div>"
+		}
+
+		dv = "<h3>"+pasta+"</h3> <div class='n-col-4 gap-10'>"+k+"<div>"	
+
+		loja1.innerHTML += dv
+	}
+
+	addloja('casinha')
+	addloja('bolinha')
+	addloja('coleira')
+
+
+
+</script>
