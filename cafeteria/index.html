@@ -1,0 +1,754 @@
+
+
+
+<style>
+	*{
+		outline: none;
+		transition: 0.5s;
+	}
+	body{
+		padding: 0;
+		margin:0;
+		font-family: 'Montserrat', sans-serif;
+		background-color: white;
+	}
+	
+	.bloco{
+		width: 100%;
+		height: 45vw;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		font-size: 30;
+
+	}
+
+	.bloco *{transition: 0.5s;text-shadow: 0px 0px 5px black;}
+
+
+	.bloco div{
+		color: white;
+		text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+		position: absolute;
+		top: auto;
+		bottom: auto;
+		left: auto;
+		right: auto;
+		margin:auto;
+		text-align: center;
+	}
+
+	.bloco img{
+		width: 100%;
+	}
+
+	.fundo-purple-1{
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0,0.5);
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+	}
+
+	.bt1,.bt2,.bloco button{
+		border: 1px solid white;
+		padding: 15 40;
+		background-color: transparent;
+		border-radius: 10px;
+		color: white;
+		margin-top: 20px;
+		background-color: rgba(255,255,255,0);
+		text-transform: uppercase;
+	}
+
+	.bt2,.bt3{
+		padding: 10 20;
+		border: 1px solid #7bc043;
+		border: 1px solid #9b59b6;
+		/*#9b59b6*/
+		color: #7bc043;
+		color: #9b59b6;
+		border-radius: 5px;
+	}
+
+	.bt3{
+		background-color: transparent;
+		padding: 5;
+		margin: 5 0
+	}
+
+	.bt2:hover,.bt3:hover{
+		border: 1px solid #7bc043;
+		border: 1px solid #9b59b6;
+		color: white;
+		background-color: #7bc043;
+		background-color: #9b59b6;
+
+		cursor: pointer;
+	}
+
+	.bloco button:hover{
+		background-color: rgba(255,255,255,0.5);
+		cursor: pointer;
+	}
+
+	.menu-topo *{
+		transition: 0.2s
+	}
+
+	.menu-topo a{
+		text-decoration: none;
+		color: black;
+		padding: 10;
+	}
+
+	.menu-topo a:hover{
+		background-color:#9b59b6;
+		color: white;
+		border-bottom: 5px solid #8b49a6;
+	}
+
+	.menu-topo{
+		/*background-color: orangered;*/
+		text-align: center;
+	}
+
+	.menu-topo li{
+		list-style: none;
+		margin: 10;
+		display: inline-block;
+		padding: 10;
+		margin:auto;
+	}
+
+	.cardapio *{transition: 0.2s;}
+
+	.cardapio{
+		display: flex;
+		flex-wrap: wrap;
+		text-align: center;
+	}
+
+	.cardapio > div{
+		margin-bottom: 10;
+		width: 50%;
+		height: auto;
+		display: inline-flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		/*box-shadow: 1px 1px 1px rgba(0,0,0,0.2);*/
+	}
+
+	.cardapio .foto{
+		width: 100;
+		height: 100;
+		margin: 10;
+		display: inline-flex;
+		overflow: hidden;
+		border-radius: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	} 
+
+	.cardapio .foto:hover img{
+		width: 120;
+		height: 120;
+	}
+
+
+	.cardapio img{
+		width: 100;
+		height: 100;
+	}
+
+	.cardapio .descricao{
+		padding: 10;
+		width: 300
+	}
+
+	.tgreen1{color:#7bc043;}
+	.bgreen1{background-color:#7bc043;}
+	
+	.tpurple1{color:#9b59b6;}
+	.bpurple1{background-color:#9b59b6;}
+
+	
+	.m10{margin: 10px;}
+	.p10{padding: 10px;}
+	.mauto{margin:auto;}
+	.p-w-10{padding: 0 10;}
+
+	.fleft{float: left;}
+	.fright{float: right;}
+
+	.w50p{width: 50%;max-width: 100%;}
+
+	#sobre-txt{
+		max-width: 700;
+		padding: 20;
+		text-align: justify;
+		line-height: 2.2;
+	}
+
+	#sobre-txt p{
+		margin-bottom: 30;
+	}
+
+	.inlineflex{
+		/*background-color: #272727;*/
+		color: black;
+		width: 100%;
+		display: inline-flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	#rodape{
+		background-color: #272727;
+		color: white;
+	}
+
+
+
+	.flex{display: flex;}
+
+	.scrollx{
+		width: 100%;
+		overflow-x: scroll;
+	}
+
+	.scrolly{overflow-y: scroll;height: 100%;}
+
+	.monospace{font-family: monospace;}
+
+	#linew{
+		position: relative;
+		height: 300;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	#linew *{ transition: 0.3s; }
+
+	#linew > div{
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	.tcenter{text-align: center;}
+
+	.inp1,.inputs-1 input,.inputs-1 *{
+		padding: 10;
+		border: #9b59b6 solid 1px;
+		background-color: transparent;
+	}
+
+	.flex-between{
+		display: flex;
+		justify-content: space-between;
+	}
+
+	@media only screen and (max-width: 600px) {
+		.cardapio > div{
+			width: 100%
+		}
+	}
+
+	#balert{
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.5);
+		top: 0;
+		left: 0;
+		position: fixed;
+		z-index: 2;
+		/*opacity: 0;*/
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		display: none;
+	}
+
+	#balertin{
+		position: absolute;
+		width: 700;
+		max-width: 90%;
+		height: 1vh;
+		background-color: white;
+		overflow-y: hidden;
+		border-radius: 10px;
+		padding: 20;
+		box-shadow: 3px 3px 2px rgba(0,0,0,0.3);
+	}
+
+	.cetrao{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#bebidas,#salgados{width: 800;text-align: center;}
+	
+
+	.listacardapio{list-style: none;padding: 0;}
+	.listacardapio li{
+		width: 33.3%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.listacardapio img{width: 100;padding: 10}
+	
+	#logo img{height: 150%;bottom: 0;}
+	
+	@media only screen and (max-width: 600px){
+		.listacardapio li{width: 50%;}
+
+		#menu-topo{display: block}
+		
+		#logo{margin: auto;text-align: center;}
+		
+		#logo img{height: 10%;}
+		
+		/*menutopo*/
+
+		.menu-topo * {transition: 0.2s;padding: 0; margin: 0; list-style: none;}
+
+		.menu-topo{
+			background-color: white;
+			height: 100%;
+			float: left;
+			position: fixed;
+			top: 0;
+			right: 0;
+			box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+			z-index: 3;
+			text-align: left;
+		}
+
+		.menu-topo img{margin-top: 30}
+
+		.menu-topo:before{
+			content: 'menu';
+			background-color: white;
+			position: absolute;
+			top: 10px;
+			right:10px;
+			padding: 10px;
+			box-shadow: 0px 0px 9px rgba(0,0,0,0.2);
+			z-index: 0;
+		}
+
+		.menu-topo ul{
+			max-width: 0;
+			overflow: hidden;
+			z-index: 3;
+		}
+
+		.menu-topo:hover ul{
+			max-width: 200px;
+		}
+
+		.menu-topo li{
+			padding: 10;
+			width: 300;
+			
+			margin-bottom: 10;
+		}
+
+
+	}
+
+	.pointer{cursor: pointer;}
+	.pointer:hover{cursor: pointer;}
+
+	.b-radius-5{border-radius: 5px;}
+	.b-radius-10{border-radius: 10px;}
+
+
+
+</style>
+<!-- <link href="https://fonts.googleapis.com/css?family=Calistoga&display=swap" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+<div id="balert" onclick="sumirAlerta()">
+	<div id="balertin">
+
+		<div class="scrolly">
+			<img class="fright" src='imgs/salgado.jpg'>
+
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque luctus orci in viverra euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quis scelerisque risus. Proin sit amet arcu magna. Aliquam lobortis fringilla est, sit amet porttitor libero vehicula nec. Maecenas quis sapien mi. Suspendisse egestas hendrerit tortor, sit amet tempus mi.
+
+				Morbi pulvinar ac mauris a laoreet. Maecenas a sem sit amet mauris blandit convallis et sed diam. Vivamus at fringilla dolor. Duis viverra at sem sed tempor. Fusce ut mauris dolor. Nam quis dui id felis luctus tristique. Donec vel lacinia purus, ac aliquet magna. Vivamus volutpat egestas metus et convallis. Morbi eu posuere augue, vel ullamcorper odio. Praesent luctus gravida libero, ut commodo eros scelerisque consectetur. Nunc congue iaculis ex, et venenatis velit ornare sit amet. Suspendisse ipsum eros, fringilla vitae suscipit quis, lacinia elementum justo.
+				Morbi pulvinar ac mauris a laoreet. Maecenas a sem sit amet mauris blandit convallis et sed diam. Vivamus at fringilla dolor. Duis viverra at sem sed tempor. Fusce ut mauris dolor. Nam quis dui id felis luctus tristique. Donec vel lacinia purus, ac aliquet magna. Vivamus volutpat egestas metus et convallis. Morbi eu posuere augue, vel ullamcorper odio. Praesent luctus gravida libero, ut commodo eros scelerisque consectetur. Nunc congue iaculis ex, et venenatis velit ornare sit amet. Suspendisse ipsum eros, fringilla vitae suscipit quis, lacinia elementum justo.
+			Morbi pulvinar ac mauris a laoreet. Maecenas a sem sit amet mauris blandit convallis et sed diam. Vivamus at fringilla dolor. Duis viverra at sem sed tempor. Fusce ut mauris dolor. Nam quis dui id felis luctus tristique. Donec vel lacinia purus, ac aliquet magna. Vivamus volutpat egestas metus et convallis. Morbi eu posuere augue, vel ullamcorper odio. Praesent luctus gravida libero, ut commodo eros scelerisque consectetur. Nunc congue iaculis ex, et venenatis velit ornare sit amet. Suspendisse ipsum eros, fringilla vitae suscipit quis, lacinia elementum justo.</p>
+		</div>
+
+
+
+	</div>
+</div>
+<!-- 
+<div id="menu-topo">
+	<div id="logo"><img src='imgs/cafe3.png'></div>
+	<div class="menu">
+		<ul class="menu-1">
+			<li><a href='#home'>Home</a></li>
+			<li><a href='#cardapio'>Cardápio</a></li>
+			<li><a href='#lojas'>Lojas</a></li>
+			<li><a href='#sobre'>Sobre</a></li>
+			<li><a href='#contato'>Contato</a></li>
+			<li><a href='#cardapio'>Cardapio</a></li>
+		</ul>
+	</div>
+</div> -->
+
+<div class="tcenter">
+	<img src='imgs/cafe3.png' height="100" >
+</div>
+
+<div class="menu-topo">
+	<ul>
+		<li><a href='#home'>Home</a></li>
+		<li><a href='#cardapio'>Cardápio</a></li>
+		<li><a href='#lojas'>Lojas</a></li>
+		<li><a href='#sobre'>Sobre</a></li>
+		<li><a href='#contato'>Contato</a></li>
+		<li><a href='#fraqueado'>Fraqueado</a></li>
+	</ul>
+</div>
+
+<hr>
+
+<h2 class="p10 m10 tpurple1" id="lojas">Lojas</h2>
+
+<div class="invisible">
+	<div id="mapa"><iframe class="alertfull" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.814348721198!2d-73.98960534938307!3d40.74411044348665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a642ba4d47%3A0xa3204d864887bb80!2sMuseum%20of%20Sex!5e0!3m2!1spt-BR!2sbr!4v1574386131867!5m2!1spt-BR!2sbr" style="border:0;" allowfullscreen=""></iframe></div>
+
+	<div id="salgados"></div>
+	<div id="bebidas"></div>
+
+	<div id="listar"></div>
+
+	<!-- cadastro franquia -->
+	<div class="inputs-1" id="cadastroFranquia">
+		<input placeholder="Nome"><br><br>
+		<input placeholder="E-mail"><br><br>
+		<input placeholder="Estado"><br><br>
+		<input placeholder="Cidade"><br><br>
+		<textarea placeholder="Mensagem"></textarea><br><br>
+		<button onclick="alertar('Enviado com sucesso, logo entraremos em contato')">Enviar</button>
+	</div>
+
+</div>
+
+	
+
+
+<div class="car-carousel" w=220 v=0.5>
+	
+	<div>
+		<img src="imgs/cafeteria2.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria3.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+	
+	<div>
+		<img src="imgs/cafeteria4.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria5.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+	<div>
+		<img src="imgs/cafeteria6.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria7.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+	
+	<div>
+		<img src="imgs/cafeteria8.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria9.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria2.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria3.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+	
+	<div>
+		<img src="imgs/cafeteria4.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria5.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+	<div>
+		<img src="imgs/cafeteria6.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria7.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+	
+	<div>
+		<img src="imgs/cafeteria8.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+
+	<div>
+		<img src="imgs/cafeteria9.jpg" width="200">
+		<p>
+			CE - Fortaleza<br>
+			Rua Alguma coisa<br>
+			Nº 512<br>
+			<button class="bt3" onclick="alertar('#mapa')">Ir ao local</button>
+		</p>
+	</div>
+	
+
+</div>
+
+
+<!-- franquiado -->
+
+<div class="bloco" id="fraqueado">
+	<img src='imgs/cafe1.jpg'>
+	<p class="fundo-purple-1"></p>
+	<div>
+		Seja um franqueado<br>
+		<button onclick="alertar('#cadastroFranquia')">Clique aqui e faça seu cadastro</button>
+	</div>
+</div>
+
+
+<!-- cardapio -->
+<h2 class="p10 m10 tpurple1" id="cardapio">Cardápio</h2>
+
+<div class="cardapio">
+
+	<div>
+		<div class="foto"><img src='imgs/cardapio1.jpg'></div>
+		<div class="descricao">
+			Bebidas<br>
+			<button class="bt2" onclick="alertar('#bebidas')">Abrir</button>
+			
+		</div>
+	</div>
+
+	<div>
+		<div class="foto"><img src='imgs/salgado.jpg'></div>
+		<div class="descricao">
+			Comidas<br>
+			<button class="bt2" onclick="alertar('#salgados')">Abrir</button>
+			
+		</div>
+	</div>
+</div>
+
+<!-- sobre -->
+
+<h2 class="p10 m10 tpurple1" id="sobre">Sobre</h2>
+
+<div class="m10 mauto w500" id="sobre-txt">
+	
+	<h2 class="tpurple1">História</h2>
+
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque luctus orci in viverra euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quis scelerisque risus. Proin sit amet arcu magna. Aliquam lobortis fringilla est, sit amet porttitor libero vehicula nec. Maecenas quis sapien mi. Suspendisse egestas hendrerit tortor, sit amet tempus mi.
+	</p>
+
+	<div class="car-carousel" w=220 v=0.5 style="height: 250;">
+		<div style="height: 200"><img src="imgs/cafeteria-big.jpg" height=200 onclick="alertar('<img src=imgs/cafeteria-big.jpg>',800,800)"></div>
+		<div style="height: 200"><img src="imgs/cafeteria-big2.jpg" height=200 onclick="alertar('<img src=imgs/cafeteria-big2.jpg>',800,800)"></div>
+		<div style="height: 200"><img src="imgs/cafeteria-big3.jpg" height=200 onclick="alertar('<img src=imgs/cafeteria-big3.jpg>',800,800)"></div>
+		<div style="height: 200"><img src="imgs/cafeteria-big4.jpg" height=200 onclick="alertar('<img src=imgs/cafeteria-big4.jpg>',800,800)"></div>
+	</div>
+
+</div>
+
+<!-- contatos -->
+
+<div class="m10">
+	<h2 class="p10 m10 tpurple1 tcenter" id="contato">Contatos</h2>
+	<div class="tcenter">
+		<input type="" name="" class="inp1" placeholder="Nome">
+		<input type="" name="" class="inp1" placeholder="Email"><br><br>
+		<textarea type="" name="" class="inp1" placeholder="mensagem"></textarea><br>
+		<button class="bt2" onclick="alertar('Mensagem enviada com sucesso')">Enviar</button>
+	</div>
+</div>
+
+
+
+
+<!-- rodape -->
+
+
+<div class="inlineflex flex-between" id="rodape">
+	<div class="m10">
+		
+	</div>
+
+	<div class="m10">
+		<img src='imgs/instagram.jpg' width=30 class="b-radius-5">
+		<img src='imgs/facebook.jpg' width=30 class="b-radius-5">
+		<img src='imgs/twitter.jpg' width=30 class="b-radius-5">
+		<img src='imgs/youtube.jpg' width=30 class="b-radius-5">
+	</div>
+</div>
+
+<!-- 
+<script src='https://hatatori.github.io/alertar/alertar.js'></script>
+<script src='https://hatatori.github.io/carrosel/carousel.js'></script>
+ -->
+<script src='alertar.js'></script>
+<script src='carousel.js'></script>
+
+<style>
+	/*blocos de dentro*/
+	.car-blocos div > div{
+		height: 308;
+		background:transparent;
+		color: black;
+		font-family:monospace;
+	}
+
+	/*bloco de fora*/
+	.car-blocos{
+		height: 308;
+		background-color: transparent;
+		/*background-color: red;*/
+	}
+</style>
+
+<script>
+	function listarCardapio(div,nome_pasta,quantidade,texto){
+		t = ""
+		ul = document.createElement("ul")
+		for(i=1;i<quantidade;i++){
+			t += "<li><img src='"+nome_pasta+"/("+i+").jpg'><div><p>"+texto+" "+i+"</p></li>"
+		}
+		ul.innerHTML = t
+		ul.classList.add("listacardapio")
+		div.appendChild(ul)
+
+		console.log(div)
+	}
+
+	listarCardapio(bebidas,"imgs/cafes",52,"Capuccinos")
+	listarCardapio(salgados,"imgs/alimentos",22,"Salgado")
+
+</script>
