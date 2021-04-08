@@ -1,0 +1,271 @@
+<style>
+     body{
+        padding:0px;
+        margin:0px;
+        background-image: url("https://wallpaperaccess.com/full/13453.jpg");
+        background-size: cover;
+    }
+    .dialog{
+        width: 100%;
+        height: 100%;
+        background-color: #00000077;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        /* visibility: hidden; */
+        z-index: 10;
+    }
+
+    .dialog-in{
+        width: 80vw;
+        background-color:white;
+        height: 80vh;
+        box-shadow: 0px 0px 10px #00000055;
+        z-index: 10px;
+        border-radius: 10px;
+    }
+
+    @keyframes zoom-in{
+        from{transform: scale(0.7)}
+        to{transform: scale(1)}
+    }
+
+    @keyframes zoom-out{
+        from{transform: scale(1)}
+        to{transform: scale(0.7)}
+    }
+
+    @keyframes fade-in{
+        from{
+            opacity: 0; 
+        }
+        to{
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    @keyframes fade-out{
+        from{
+            opacity: 1; 
+            visibility: visible;
+        }
+        to{
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    input + div{
+        animation: fade-out 0.5s forwards;
+    }
+
+    input:checked + div{animation: fade-in 0.5s forwards;}
+    input:checked + div > div{animation: zoom-in 0.5s forwards;}
+
+    input + div{animation: fade-out 0.5s forwards;}
+    input + div > div{animation: zoom-out 0.5s forwards;}
+    
+    #caixa{display: none;}
+
+    label{
+        position: relative;
+    }
+    .bt-close{
+        /* font-size: 20px;  */
+        position: absolute;   
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 3px #00000055;
+        box-shadow: 0px 0px 3px #00000055;
+        top: -10px;
+        right: -10px;
+        font-family: monospace;
+        border-radius: 100%;
+        background-color: white;
+    }
+
+    iframe{
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    
+
+    .card img{
+        width: 100%;
+        /* width: 320px; */
+        /* height: 180px; */
+        position: absolute;
+    }
+
+    .card img:nth-child(2){opacity: 0; transition:0.5s}
+    .card:hover img:nth-child(2){opacity: 1; transition:0.5s}
+
+    .card{
+        position: relative;
+        width: 270px;
+        height: 150px;
+        display: inline-block;
+        border-radius: 10px;
+        cursor: pointer;
+        margin:5px;
+        overflow:hidden;
+    }
+
+    *{transition:0.2s}
+    .card:hover{
+        transform:scale(1.1);
+        z-index: 1;;
+    }
+
+    .capa{
+        width: 100%;
+        height: 100%;
+
+        background-image: linear-gradient(transparent 0px,black 70%);
+        position: fixed;
+    }
+
+    .container{
+        width: 1200px;
+        max-width: 100%;
+        margin: 50px auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+  
+</style>
+
+<div class="capa"></div>
+
+<div id="conteudo" class="container"></div>
+
+<input type="checkbox" id="caixa">
+<div class="dialog" id='dia'>
+    <div class="dialog-in">
+        <label class="bt-close" for="caixa">X</label>
+        <iframe id="ifr"></iframe>
+    </div>    
+</div>
+
+<script>
+    
+    lista = [
+        {"nome":"O Esquadrão Suicida | Trailer Restrito Oficial","img1":"https://i.ytimg.com/vi/UkFJ90ef4_I/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB2bBQ1o2QqNgBEgwITXKqDb9YdVA","img2":"https://i.ytimg.com/vi/UkFJ90ef4_I/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB2bBQ1o2QqNgBEgwITXKqDb9YdVA","link":"UkFJ90ef4_I"},
+        {"nome":"The Nevers: Official Trailer | HBO","img1":"https://i.ytimg.com/vi/gs-ODufnJ8Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC5etnjz0CVJNglqO7YEldcE0jz9g","img2":"https://i.ytimg.com/vi/gs-ODufnJ8Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC5etnjz0CVJNglqO7YEldcE0jz9g","link":"gs-ODufnJ8Y"},
+        {"nome":"Stowaway | Official Trailer | Netflix","img1":"https://i.ytimg.com/vi/A_apvQkWsVY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAlLYXJ9uv8M3r090wSk9I33BDTkA","img2":"https://i.ytimg.com/vi/A_apvQkWsVY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAlLYXJ9uv8M3r090wSk9I33BDTkA","link":"A_apvQkWsVY"},
+        {"nome":"LIVE | Rocket League: TRAILER SEASON 3 E SHOW DO KASKADE AS 21HRS NO FORTNITE","img1":"https://i.ytimg.com/vi/50il4_2LZCc/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBWAXoe4LPTd3pILeF2isDIyBI0RA","img2":"https://i.ytimg.com/vi/50il4_2LZCc/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBWAXoe4LPTd3pILeF2isDIyBI0RA","link":"50il4_2LZCc"},
+        {"nome":"O Esquadrão Suicida: Trailer 1 animou! Será que agora vai? BORGOHOME","img1":"https://i.ytimg.com/vi/2L-NC-ybUoE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB7zsUylbxc6pDUjdfyIy0phhR-Vg","img2":"https://i.ytimg.com/vi/2L-NC-ybUoE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB7zsUylbxc6pDUjdfyIy0phhR-Vg","link":"2L-NC-ybUoE"},
+        {"nome":"A Menina Que Matou Os Pais - O Menino Que Matou Meus Pais | Trailer Oficial 2","img1":"https://i.ytimg.com/vi/qcX6qhojGdI/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA2AA6vI8iM8IA_MZZX_GUg6WjcCA","img2":"https://i.ytimg.com/vi/qcX6qhojGdI/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA2AA6vI8iM8IA_MZZX_GUg6WjcCA","link":"qcX6qhojGdI"},
+        {"nome":"The Suicide Squad - Official Red Band Trailer!","img1":"https://i.ytimg.com/vi/KuQxISj6GPA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCMKeIRATcucXui9m5Ph91EGwuXbQ","img2":"https://i.ytimg.com/vi/KuQxISj6GPA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCMKeIRATcucXui9m5Ph91EGwuXbQ","link":"KuQxISj6GPA"},
+        {"nome":"MORTAL KOMBAT \"Finish Him\" Trailer (Novo, 2021)","img1":"https://i.ytimg.com/vi/Y7uI-HQ-tDA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCZRjbs95hyON9DhWK2CsaB6pz_pA","img2":"https://i.ytimg.com/vi/Y7uI-HQ-tDA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCZRjbs95hyON9DhWK2CsaB6pz_pA","link":"Y7uI-HQ-tDA"},
+        {"nome":"O ESQUADRÃO SUICIDA (2021) Trailer Legendado","img1":"https://i.ytimg.com/vi/_krGjingmEo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAjAf3vnNvoCOEwsK_KxEqlKvytuw","img2":"https://i.ytimg.com/vi/_krGjingmEo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAjAf3vnNvoCOEwsK_KxEqlKvytuw","link":"_krGjingmEo"},
+        {"nome":"GODZILLA VS KONG \"Mechagodzilla\" Trailer (NEW 2021) Monster Movie HD","img1":"https://i.ytimg.com/vi/C1VUCak9S2s/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDemKCUnR-t8CzSqvWgg3we03ua2w","img2":"https://i.ytimg.com/vi/C1VUCak9S2s/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDemKCUnR-t8CzSqvWgg3we03ua2w","link":"C1VUCak9S2s"},
+        {"nome":"THE SUICIDE SQUAD Official Trailer (2021) Margot Robbie, John Cena Action Movie HD","img1":"https://i.ytimg.com/vi/3bNrct-1uA4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtZEXK_W8qWyQGLpyqYWBQPfBiKQ","img2":"https://i.ytimg.com/vi/3bNrct-1uA4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtZEXK_W8qWyQGLpyqYWBQPfBiKQ","link":"3bNrct-1uA4"},
+        {"nome":"Made For Love | Official Trailer | HBO Max","img1":"https://i.ytimg.com/vi/lvWgNSLIULw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMYsbWIGd8VRaVrODfjcN9uvuyhQ","img2":"https://i.ytimg.com/vi/lvWgNSLIULw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMYsbWIGd8VRaVrODfjcN9uvuyhQ","link":"lvWgNSLIULw"},
+        {"nome":"Comparison Scene: Snyder Cut (Official Trailer) - Whedon Cut (Official Movie & Trailer)","img1":"https://i.ytimg.com/vi/q4tIqdMh7BM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCTezLF3r5P45I8Fzs1DnPeQFffvg","img2":"https://i.ytimg.com/vi/q4tIqdMh7BM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCTezLF3r5P45I8Fzs1DnPeQFffvg","link":"q4tIqdMh7BM"},
+        {"nome":"MORTAL KOMBAT \"Finish Him\" Trailer (NEW, 2021)","img1":"https://i.ytimg.com/vi/_fBei_Y5bx8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBIUpi4Ruz8XIJRKrk_XlIEl0y4JA","img2":"https://i.ytimg.com/vi/_fBei_Y5bx8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBIUpi4Ruz8XIJRKrk_XlIEl0y4JA","link":"_fBei_Y5bx8"},
+        {"nome":"Wey nooo The SUICIDE SQUAD explicado y reacción trailer, Starro, King Shark!","img1":"https://i.ytimg.com/vi/JKTcuGYysmk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAYE8SHn_q-gycZlibgh2kPsYDFOA","img2":"https://i.ytimg.com/vi/JKTcuGYysmk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAYE8SHn_q-gycZlibgh2kPsYDFOA","link":"JKTcuGYysmk"},
+        {"nome":"STOWAWAY Official Trailer (2021)","img1":"https://i.ytimg.com/vi/nOggbGeuicQ/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBXzfunwe5zW2rZttiUnD8sIoVvQQ","img2":"https://i.ytimg.com/vi/nOggbGeuicQ/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBXzfunwe5zW2rZttiUnD8sIoVvQQ","link":"nOggbGeuicQ"},
+        {"nome":"Live de lançamento do trailer do Camp Wars","img1":"https://i.ytimg.com/vi/dsrD9KDgRGk/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPoo38hhmSuxPm688FwEwlok7G2w","img2":"https://i.ytimg.com/vi/dsrD9KDgRGk/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPoo38hhmSuxPm688FwEwlok7G2w","link":"dsrD9KDgRGk"},
+        {"nome":"THE SUICIDE SQUAD | Official Trailer (2021)","img1":"https://i.ytimg.com/vi/jiedtKegoqw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCimfiumCOWipF3SvkKyw1zbF277w","img2":"https://i.ytimg.com/vi/jiedtKegoqw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCimfiumCOWipF3SvkKyw1zbF277w","link":"jiedtKegoqw"},
+        {"nome":"SEPARAÇÃO Trailer oficial (2021)","img1":"https://i.ytimg.com/vi/XJ0fzKnXVCA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzy4n67v8775TdweYqprssiF5FrA","img2":"https://i.ytimg.com/vi/XJ0fzKnXVCA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzy4n67v8775TdweYqprssiF5FrA","link":"XJ0fzKnXVCA"},
+        {"nome":"MORTAL KOMBAT \"Sub-Zero VS Scorpion\" Trailer (NEW 2021)","img1":"https://i.ytimg.com/vi/Z5CWOcrw-h8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBiykeicQLlYd6veXqP9wKYcJ7V3Q","img2":"https://i.ytimg.com/vi/Z5CWOcrw-h8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBiykeicQLlYd6veXqP9wKYcJ7V3Q","link":"Z5CWOcrw-h8"},
+        {"nome":"Isonzo (Follow-Up to WW1: Verdun) -  Official Announcement Trailer","img1":"https://i.ytimg.com/vi/EmGtkGWF668/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD_z2mxxol2ArGjJWpUAYbvG6DCAg","img2":"https://i.ytimg.com/vi/EmGtkGWF668/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD_z2mxxol2ArGjJWpUAYbvG6DCAg","link":"EmGtkGWF668"},
+        {"nome":"Atomic Heart - Trailer de jogo do modo de foto oficial","img1":"https://i.ytimg.com/vi/FDESohikfGo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC3jP8ffNCmSvtv1oNRbn1y7sWhzA","img2":"https://i.ytimg.com/vi/FDESohikfGo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC3jP8ffNCmSvtv1oNRbn1y7sWhzA","link":"FDESohikfGo"},
+        {"nome":"ESQUADRÃO SUICIDA 2 - TRAILER COMENTADO","img1":"https://i.ytimg.com/vi/diYFWaVcihk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBvBA9O9REDk_1HC6hIDh0gpufRuA","img2":"https://i.ytimg.com/vi/diYFWaVcihk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBvBA9O9REDk_1HC6hIDh0gpufRuA","link":"diYFWaVcihk"},
+        {"nome":"Mortal Kombat |  Trailer Legendado","img1":"https://i.ytimg.com/vi/sX1_buHj3wA/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARK-YWc8n7slsFKGXhhI_bzxVIKw","img2":"https://i.ytimg.com/vi/sX1_buHj3wA/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARK-YWc8n7slsFKGXhhI_bzxVIKw","link":"sX1_buHj3wA"},
+        {"nome":"EL ESCUADRÓN SUICIDA Tráiler Español DOBLADO (2021)","img1":"https://i.ytimg.com/vi/hZP6bAni_kc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAKVPXUN7HjpyRFwqnwUR8yATPJrQ","img2":"https://i.ytimg.com/vi/hZP6bAni_kc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAKVPXUN7HjpyRFwqnwUR8yATPJrQ","link":"hZP6bAni_kc"},
+        {"nome":"THE SUICIDE SQUAD TRAILER REACTION!! (Red Band | Breakdown | James Gunn | King Shark | 2021 DCEU)","img1":"https://i.ytimg.com/vi/JdKmbkXKO0A/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBqPAs7Pdc3NhVSYTXY_z31ux-2ZA","img2":"https://i.ytimg.com/vi/JdKmbkXKO0A/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBqPAs7Pdc3NhVSYTXY_z31ux-2ZA","link":"JdKmbkXKO0A"},
+        {"nome":"TRAILER HOMENS ARMADOS","img1":"https://i.ytimg.com/vi/-gyV0zan8Uc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCGvs-5w1yfywUSltck0H8tZYc35A","img2":"https://i.ytimg.com/vi/-gyV0zan8Uc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCGvs-5w1yfywUSltck0H8tZYc35A","link":"-gyV0zan8Uc"},
+        {"nome":"Life is Strange Remastered Collection - Announce Trailer [ESRB]","img1":"https://i.ytimg.com/vi/o69FMYlJ_48/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB8Azwp9HbdXjEVAc2vJtVdztQEWQ","img2":"https://i.ytimg.com/vi/o69FMYlJ_48/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB8Azwp9HbdXjEVAc2vJtVdztQEWQ","link":"o69FMYlJ_48"},
+        {"nome":"The Suicide Squad | Official IMAX® Red Band Trailer","img1":"https://i.ytimg.com/vi/TJ8uNUaKdKE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCSO92Ia-M11apytr-8wgDKDXfnxA","img2":"https://i.ytimg.com/vi/TJ8uNUaKdKE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCSO92Ia-M11apytr-8wgDKDXfnxA","link":"TJ8uNUaKdKE"},
+        {"nome":"GREAT WHITE | Official Trailer [HD]","img1":"https://i.ytimg.com/vi/wq0aok0pEDw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMCsjCafaIDtNJV68cwzyIgG8HIQ","img2":"https://i.ytimg.com/vi/wq0aok0pEDw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMCsjCafaIDtNJV68cwzyIgG8HIQ","link":"wq0aok0pEDw"},
+        {"nome":"Sherlock Holmes, capítulo um - Trailer oficial de revelação da jogabilidade","img1":"https://i.ytimg.com/vi/jx4xSpY1-FA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC6EvU_57i6h1IjuHlcx3HsG20SgQ","img2":"https://i.ytimg.com/vi/jx4xSpY1-FA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC6EvU_57i6h1IjuHlcx3HsG20SgQ","link":"jx4xSpY1-FA"},
+        {"nome":"GODZILLA vs KONG Trailer FINAL | Uma HISTÓRIA de VINGANÇA!","img1":"https://i.ytimg.com/vi/ioxRAPF8CsU/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAOSdgR8pQhyvJuaim980e8-ODfpw","img2":"https://i.ytimg.com/vi/ioxRAPF8CsU/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAOSdgR8pQhyvJuaim980e8-ODfpw","link":"ioxRAPF8CsU"},
+        {"nome":"Scott Pilgrim vs. the World - Official 10th Anniversary Trailer","img1":"https://i.ytimg.com/vi/egkIeDQiUrc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAfWDagnCwwztDrvhagqb6bBvvCCA","img2":"https://i.ytimg.com/vi/egkIeDQiUrc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAfWDagnCwwztDrvhagqb6bBvvCCA","link":"egkIeDQiUrc"},
+        {"nome":"Como Um Clichê Musical Dominou os Trailers de Hollywood","img1":"https://i.ytimg.com/vi/X3qRI6v-Huw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBjrcrjOTSvsH98lSkq_LSK3YNTOw","img2":"https://i.ytimg.com/vi/X3qRI6v-Huw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBjrcrjOTSvsH98lSkq_LSK3YNTOw","link":"X3qRI6v-Huw"},
+        {"nome":"Army of the Dead | Official Teaser | Netflix","img1":"https://i.ytimg.com/vi/H83kjG5RCT8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBn2LuwToH826LEwNKgR7zI6EqXOw","img2":"https://i.ytimg.com/vi/H83kjG5RCT8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBn2LuwToH826LEwNKgR7zI6EqXOw","link":"H83kjG5RCT8"},
+        {"nome":"NOVO Esquadrão Suicida PRIMEIRO trailer oficial - REACT","img1":"https://i.ytimg.com/vi/aFrUwNT9fyM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAx_aukaGZiCRlSn_2QskRFEONY1g","img2":"https://i.ytimg.com/vi/aFrUwNT9fyM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAx_aukaGZiCRlSn_2QskRFEONY1g","link":"aFrUwNT9fyM"},
+        {"nome":"SPIDER-GWEN Trailer #1 HD | Sabrina Carpenter, Tom Holland","img1":"https://i.ytimg.com/vi/sdo8HDPgc04/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClf1i2oOgdg_u5oPzCLkaJyw6NRg","img2":"https://i.ytimg.com/vi/sdo8HDPgc04/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClf1i2oOgdg_u5oPzCLkaJyw6NRg","link":"sdo8HDPgc04"},
+        {"nome":"Pasajero inesperado | Tráiler oficial | Netflix","img1":"https://i.ytimg.com/vi/Yf7l0qAgumg/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJR5djRLsa7swxsJwSU4pFTTwWEg","img2":"https://i.ytimg.com/vi/Yf7l0qAgumg/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJR5djRLsa7swxsJwSU4pFTTwWEg","link":"Yf7l0qAgumg"},
+        {"nome":"Zack Snyder's Justice League Trailer #2 (2021) | Movieclips Trailers","img1":"https://i.ytimg.com/vi/pLQkPeCR3gY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBzxUE0fjB_iMIkqtH-xmwof7ZgDg","img2":"https://i.ytimg.com/vi/pLQkPeCR3gY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBzxUE0fjB_iMIkqtH-xmwof7ZgDg","link":"pLQkPeCR3gY"},
+        {"nome":"A Menina Que Matou Os Pais - O Menino Que Matou Meus Pais | Trailer Oficial","img1":"https://i.ytimg.com/vi/KyhQNjR7zy4/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDb6yZAyW9qTjtveUft4svjnRbymw","img2":"https://i.ytimg.com/vi/KyhQNjR7zy4/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDb6yZAyW9qTjtveUft4svjnRbymw","link":"KyhQNjR7zy4"},
+        {"nome":"Não Olhe | Trailer Legendado","img1":"https://i.ytimg.com/vi/lb5UsiTQRMg/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBHtHvkduLw4xrSm8FrBT1BHwhGoQ","img2":"https://i.ytimg.com/vi/lb5UsiTQRMg/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBHtHvkduLw4xrSm8FrBT1BHwhGoQ","link":"lb5UsiTQRMg"},
+        {"nome":"THE UNHOLY - Official Trailer (HD) | In Theaters Good Friday, April 2","img1":"https://i.ytimg.com/vi/NmQiJPLYzPI/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCMKeB45KTXurjg6tptChygLRsd_A","img2":"https://i.ytimg.com/vi/NmQiJPLYzPI/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCMKeB45KTXurjg6tptChygLRsd_A","link":"NmQiJPLYzPI"},
+        {"nome":"EDGE OF THE WORLD Trailer (2021) Jonathan Rhys Meyers, Dominic Monaghan Movie","img1":"https://i.ytimg.com/vi/lve-XOeFBS0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB56YWkkp9a3hCeSmOPw2NkZQEMtA","img2":"https://i.ytimg.com/vi/lve-XOeFBS0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB56YWkkp9a3hCeSmOPw2NkZQEMtA","link":"lve-XOeFBS0"},
+        {"nome":"THE BEST UPCOMING MOVIES 2020 & 2021 (New Trailers)","img1":"https://i.ytimg.com/vi/LkG-5sYVQIA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCLfGIS3u6HHr6mT62_VEMFhgd5VQ","img2":"https://i.ytimg.com/vi/LkG-5sYVQIA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCLfGIS3u6HHr6mT62_VEMFhgd5VQ","link":"LkG-5sYVQIA"},
+        {"nome":"MECHAGODZILLA REVELADO em Trailer CHINÊS 🎬 Godzilla vs Kong - Irmãos Piologo Filmes - Reaction","img1":"https://i.ytimg.com/vi/1js_vbqD-JE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLALlHTh5c6STfi0LsbcS9s967triQ","img2":"https://i.ytimg.com/vi/1js_vbqD-JE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLALlHTh5c6STfi0LsbcS9s967triQ","link":"1js_vbqD-JE"},
+        {"nome":"Comparison Scene: Snyder Cut (Official Trailer) - Whedon Cut (Official Movie & Trailer)","img1":"https://i.ytimg.com/vi/q4tIqdMh7BM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCTezLF3r5P45I8Fzs1DnPeQFffvg","img2":"https://i.ytimg.com/vi/q4tIqdMh7BM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCTezLF3r5P45I8Fzs1DnPeQFffvg","link":"q4tIqdMh7BM"},
+        {"nome":"Isonzo (Follow-Up to WW1: Verdun) -  Official Announcement Trailer","img1":"https://i.ytimg.com/vi/EmGtkGWF668/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD_z2mxxol2ArGjJWpUAYbvG6DCAg","img2":"https://i.ytimg.com/vi/EmGtkGWF668/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD_z2mxxol2ArGjJWpUAYbvG6DCAg","link":"EmGtkGWF668"},
+        {"nome":"RESIDENT EVIL 8 VILLAGE Stadia Trailer (New, 2021) Lady Dimitrescu","img1":"https://i.ytimg.com/vi/avqVaZA8VRk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_Nuj1CftfW-imm1aSAd5JVMxodQ","img2":"https://i.ytimg.com/vi/avqVaZA8VRk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_Nuj1CftfW-imm1aSAd5JVMxodQ","link":"avqVaZA8VRk"},
+        {"nome":"Made For Love | Official Trailer | HBO Max","img1":"https://i.ytimg.com/vi/lvWgNSLIULw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMYsbWIGd8VRaVrODfjcN9uvuyhQ","img2":"https://i.ytimg.com/vi/lvWgNSLIULw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMYsbWIGd8VRaVrODfjcN9uvuyhQ","link":"lvWgNSLIULw"},
+        {"nome":"Thalaivi | Official Trailer (Tamil) | Kangana Ranaut | Arvind Swamy | Vijay | 23rd April","img1":"https://i.ytimg.com/vi/nt_G_Ti8lAo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCugW0VlGKrdgpwyAnYt0IfYopBUA","img2":"https://i.ytimg.com/vi/nt_G_Ti8lAo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCugW0VlGKrdgpwyAnYt0IfYopBUA","link":"nt_G_Ti8lAo"},
+        {"nome":"THE RESORT Trailer (2021) Michelle Randolph, Thriller Movie","img1":"https://i.ytimg.com/vi/xEBVf6AEO-o/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBnnIGn-29SwQgy77RLfqMBjJtIbw","img2":"https://i.ytimg.com/vi/xEBVf6AEO-o/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBnnIGn-29SwQgy77RLfqMBjJtIbw","link":"xEBVf6AEO-o"},
+        {"nome":"TRAILER DE O ESQUADRÃO SUICIDA | REACT E COMENTÁRIOS","img1":"https://i.ytimg.com/vi/fbVmz2qIa_4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCL6cjlbfFvg57zRgMgXneo7c4yrQ","img2":"https://i.ytimg.com/vi/fbVmz2qIa_4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCL6cjlbfFvg57zRgMgXneo7c4yrQ","link":"fbVmz2qIa_4"},
+        {"nome":"Glitchpunk - Official Trailer","img1":"https://i.ytimg.com/vi/Bg_52Jo0jLc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBrkcwClWaCvfCnrZ5Jo4EIavSZ2A","img2":"https://i.ytimg.com/vi/Bg_52Jo0jLc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBrkcwClWaCvfCnrZ5Jo4EIavSZ2A","link":"Bg_52Jo0jLc"},
+        {"nome":"The Suicide Squad Red Band Trailer #1 (2021) | Movieclips Trailers","img1":"https://i.ytimg.com/vi/RezU02mtXa4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA9pdmAH_-ZZOhjPCbASyXF6spE_Q","img2":"https://i.ytimg.com/vi/RezU02mtXa4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA9pdmAH_-ZZOhjPCbASyXF6spE_Q","link":"RezU02mtXa4"},
+        {"nome":"Stowaway - Official Trailer (2021) Anna Kendrick, Daniel Dae Kim, Toni Collette","img1":"https://i.ytimg.com/vi/dQSUaJ1LXac/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAHHZ_B9XaVSsiy3MPYdrK0xLeLLA","img2":"https://i.ytimg.com/vi/dQSUaJ1LXac/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAHHZ_B9XaVSsiy3MPYdrK0xLeLLA","link":"dQSUaJ1LXac"},
+        {"nome":"EL ESCUADRÓN SUICIDA Tráiler Español Latino SUBTITULADO (2021) Margot Robbie, John Cena","img1":"https://i.ytimg.com/vi/0BNEEIgz6TU/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBefiOyNmVkOeVpvU7MaCq3iSsPLA","img2":"https://i.ytimg.com/vi/0BNEEIgz6TU/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBefiOyNmVkOeVpvU7MaCq3iSsPLA","link":"0BNEEIgz6TU"},
+        {"nome":"THE MAN WHO SOLD HIS SKIN Trailer (2021) Oscars 2021, Monica Bellucci Drama Movie","img1":"https://i.ytimg.com/vi/cY4THtbaklE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBeriYSTaRsDF63czP_gAujRVWmTQ","img2":"https://i.ytimg.com/vi/cY4THtbaklE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBeriYSTaRsDF63czP_gAujRVWmTQ","link":"cY4THtbaklE"},
+        {"nome":"Monster Hunter | Trailer Legendado","img1":"https://i.ytimg.com/vi/U3iUJ8f8nrE/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDyPgifoRpAJs3kURovD8cprM4hmg","img2":"https://i.ytimg.com/vi/U3iUJ8f8nrE/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDyPgifoRpAJs3kURovD8cprM4hmg","link":"U3iUJ8f8nrE"},
+        {"nome":"THE SUICIDE SQUAD Official Trailer (2021)","img1":"https://i.ytimg.com/vi/-5dug4wrna8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDz0nbYqsi7w8O9E1hiJMFxfNVfmw","img2":"https://i.ytimg.com/vi/-5dug4wrna8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDz0nbYqsi7w8O9E1hiJMFxfNVfmw","link":"-5dug4wrna8"},
+        {"nome":"THE SUICIDE SQUAD Trailer German Deutsch (2021)","img1":"https://i.ytimg.com/vi/HA5A8KG0_ZM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBrwHSaeJnhMEU120xjVcEPCRLRFQ","img2":"https://i.ytimg.com/vi/HA5A8KG0_ZM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBrwHSaeJnhMEU120xjVcEPCRLRFQ","link":"HA5A8KG0_ZM"},
+        {"nome":"THE UNHOLY Trailer (2021)","img1":"https://i.ytimg.com/vi/1Uog4AeVdIk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAWpaAUwxUvzzBMMmxOplODegyWeg","img2":"https://i.ytimg.com/vi/1Uog4AeVdIk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAWpaAUwxUvzzBMMmxOplODegyWeg","link":"1Uog4AeVdIk"},
+        {"nome":"Gwen, a Costureira Encantada | Trailer da Campeã – League of Legends","img1":"https://i.ytimg.com/vi/AJtT5QQS9lE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBdCa-sjkohyHNYWshIEk89qzHtuA","img2":"https://i.ytimg.com/vi/AJtT5QQS9lE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBdCa-sjkohyHNYWshIEk89qzHtuA","link":"AJtT5QQS9lE"},
+        {"nome":"GODZILLA VS KONG Trailer Brasileiro LEGENDADO (2021)","img1":"https://i.ytimg.com/vi/tMHwdVOFkUw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCrtXWhtcR-bZ_aaKjMtcbr6JQkVg","img2":"https://i.ytimg.com/vi/tMHwdVOFkUw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCrtXWhtcR-bZ_aaKjMtcbr6JQkVg","link":"tMHwdVOFkUw"},
+        {"nome":"WARDĘGA OGLĄDA I KOMENTUJE TRAILER FAME MMA 10","img1":"https://i.ytimg.com/vi/uijjSB_Y11k/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJTBq-ds46WQA14YY8n_O3tzOYBQ","img2":"https://i.ytimg.com/vi/uijjSB_Y11k/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJTBq-ds46WQA14YY8n_O3tzOYBQ","link":"uijjSB_Y11k"},
+        {"nome":"THE SUICIDE SQUAD Trailer (4K ULTRA HD) NEW 2021","img1":"https://i.ytimg.com/vi/fWZKX72Lv_k/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAYuUIViOsbgw9lWEb9ZfbXb3V5qA","img2":"https://i.ytimg.com/vi/fWZKX72Lv_k/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAYuUIViOsbgw9lWEb9ZfbXb3V5qA","link":"fWZKX72Lv_k"},
+        {"nome":"IN THE EARTH Official Trailer (2021)","img1":"https://i.ytimg.com/vi/2YYnSJF0fcY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAPnQC6IcbrL4nfI2B4ASjbiF64bg","img2":"https://i.ytimg.com/vi/2YYnSJF0fcY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAPnQC6IcbrL4nfI2B4ASjbiF64bg","link":"2YYnSJF0fcY"},
+        {"nome":"Gwen: The Hallowed Seamstress | Champion Gameplay Trailer - League of Legends","img1":"https://i.ytimg.com/vi/Q33tKQd-VWY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC9euogBTtgo7uEyj5RID04_E6RiA","img2":"https://i.ytimg.com/vi/Q33tKQd-VWY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC9euogBTtgo7uEyj5RID04_E6RiA","link":"Q33tKQd-VWY"},
+        {"nome":"SEPARAÇÃO Trailer oficial (2021)","img1":"https://i.ytimg.com/vi/XJ0fzKnXVCA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzy4n67v8775TdweYqprssiF5FrA","img2":"https://i.ytimg.com/vi/XJ0fzKnXVCA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzy4n67v8775TdweYqprssiF5FrA","link":"XJ0fzKnXVCA"},
+        {"nome":"Chorão - Marginal Alado | Trailer Oficial","img1":"https://i.ytimg.com/vi/1q05D1GO4eo/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDjnATzR2y22U8xNQYI9wyAQQnasA","img2":"https://i.ytimg.com/vi/1q05D1GO4eo/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDjnATzR2y22U8xNQYI9wyAQQnasA","link":"1q05D1GO4eo"},
+        {"nome":"The Unholy - Official Trailer (2021) Jeffrey Dean Morgan, Sam Raimi, Katie Aselton","img1":"https://i.ytimg.com/vi/UsfJxm7jTVY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA1s3j6YzmFuRATlXixgxY_RNKpVA","img2":"https://i.ytimg.com/vi/UsfJxm7jTVY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA1s3j6YzmFuRATlXixgxY_RNKpVA","link":"UsfJxm7jTVY"},
+        {"nome":"MORTAL KOMBAT Trailer # 2 (Novo, 2021)","img1":"https://i.ytimg.com/vi/CdAyj5wC9aE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDqd0dfUCIsgMHmazyQ0nGNR5g5Uw","img2":"https://i.ytimg.com/vi/CdAyj5wC9aE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDqd0dfUCIsgMHmazyQ0nGNR5g5Uw","link":"CdAyj5wC9aE"},
+        {"nome":"MANDELA | மண்டேலா - Official Trailer | Yogi Babu | World Premiere on Star Vijay | April 4 at 9:30 AM","img1":"https://i.ytimg.com/vi/ES1Oz7cW11M/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBmyMVnl4_YxuYgYjhpDn878dTWyQ","img2":"https://i.ytimg.com/vi/ES1Oz7cW11M/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBmyMVnl4_YxuYgYjhpDn878dTWyQ","link":"ES1Oz7cW11M"},
+        {"nome":"Scott Pilgrim vs. the World - Official 10th Anniversary Trailer","img1":"https://i.ytimg.com/vi/egkIeDQiUrc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAfWDagnCwwztDrvhagqb6bBvvCCA","img2":"https://i.ytimg.com/vi/egkIeDQiUrc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAfWDagnCwwztDrvhagqb6bBvvCCA","link":"egkIeDQiUrc"},
+        {"nome":"Liga da Justiça de Zack Snyder - Trailer Oficial (Legendado)","img1":"https://i.ytimg.com/vi/BifA90UAQtg/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC3mCfnJq_PrvSJWRpltQJaSW823w","img2":"https://i.ytimg.com/vi/BifA90UAQtg/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC3mCfnJq_PrvSJWRpltQJaSW823w","link":"BifA90UAQtg"},
+        {"nome":"MORTAL KOMBAT \"Finish Him\" Trailer (NEW, 2021)","img1":"https://i.ytimg.com/vi/_fBei_Y5bx8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBIUpi4Ruz8XIJRKrk_XlIEl0y4JA","img2":"https://i.ytimg.com/vi/_fBei_Y5bx8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBIUpi4Ruz8XIJRKrk_XlIEl0y4JA","link":"_fBei_Y5bx8"},
+        {"nome":"KOF XV｜YASHIRO NANAKASE｜Character Trailer #11 (4K)","img1":"https://i.ytimg.com/vi/yz8aCcwUo8c/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBNojzQrNI-yS62KoT4WXjREiTiVA","img2":"https://i.ytimg.com/vi/yz8aCcwUo8c/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBNojzQrNI-yS62KoT4WXjREiTiVA","link":"yz8aCcwUo8c"},
+        {"nome":"MORTAL KOMBAT Tráiler # 2 (Nuevo, 2021)","img1":"https://i.ytimg.com/vi/iKpeOvLZkDM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA205FD1xqN4seWQGEV9n0xyKTrPA","img2":"https://i.ytimg.com/vi/iKpeOvLZkDM/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA205FD1xqN4seWQGEV9n0xyKTrPA","link":"iKpeOvLZkDM"},
+        {"nome":"The Suicide Squad - Newest Trailer First Time Reaction","img1":"https://i.ytimg.com/vi/KmgS6nUvpAI/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBLe3UQGIIGtg5Awf72DvqDhsYljw","img2":"https://i.ytimg.com/vi/KmgS6nUvpAI/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBLe3UQGIIGtg5Awf72DvqDhsYljw","link":"KmgS6nUvpAI"},
+        {"nome":"Trailer oficial da EDGE OF THE WORLD (2021)","img1":"https://i.ytimg.com/vi/ycgW26bzjq0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCngtCyVurW6nrzdKSsy5AO3QGgdA","img2":"https://i.ytimg.com/vi/ycgW26bzjq0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCngtCyVurW6nrzdKSsy5AO3QGgdA","link":"ycgW26bzjq0"},
+        {"nome":"Shadow and Bone | Teaser Trailer | Netflix","img1":"https://i.ytimg.com/vi/UHJYYd_RnJc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBS_thwQyzJbxFbTqf_RGYiQhJfjw","img2":"https://i.ytimg.com/vi/UHJYYd_RnJc/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBS_thwQyzJbxFbTqf_RGYiQhJfjw","link":"UHJYYd_RnJc"},
+        {"nome":"THEM - Official Trailer | Prime Video","img1":"https://i.ytimg.com/vi/WL3Jz8fDgFI/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAQ2MX3hf2W7bZOlpNQKBX8MRy9OQ","img2":"https://i.ytimg.com/vi/WL3Jz8fDgFI/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAQ2MX3hf2W7bZOlpNQKBX8MRy9OQ","link":"WL3Jz8fDgFI"},
+        {"nome":"THE TOLL Official Trailer (2021)","img1":"https://i.ytimg.com/vi/3HoJPq3qHzk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBL1rh2MJFDhiJHxUXp-leIbU_o8A","img2":"https://i.ytimg.com/vi/3HoJPq3qHzk/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBL1rh2MJFDhiJHxUXp-leIbU_o8A","link":"3HoJPq3qHzk"},
+        {"nome":"Frank of Ireland - Official Trailer | Prime Video","img1":"https://i.ytimg.com/vi/wY-swlATQ2A/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAdA8krYQ1afeWXe0DcKXWOXL1aqQ","img2":"https://i.ytimg.com/vi/wY-swlATQ2A/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAdA8krYQ1afeWXe0DcKXWOXL1aqQ","link":"wY-swlATQ2A"},
+        {"nome":"Mate ou Morra | Trailer Legendado","img1":"https://i.ytimg.com/vi/t8V_uH0lgWs/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB_dy2jL8l6Xbp7f7PLSMNyAq5ISA","img2":"https://i.ytimg.com/vi/t8V_uH0lgWs/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB_dy2jL8l6Xbp7f7PLSMNyAq5ISA","link":"t8V_uH0lgWs"},
+        {"nome":"Trailer oficial TRIGGER POINT (2021)","img1":"https://i.ytimg.com/vi/Bz6wHJCwR0w/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDmearBzcr4m6172-n6dMHoKdNEeA","img2":"https://i.ytimg.com/vi/Bz6wHJCwR0w/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDmearBzcr4m6172-n6dMHoKdNEeA","link":"Bz6wHJCwR0w"},
+        {"nome":"The Suicide Squad Trailer REACTION - James Gunn 2021","img1":"https://i.ytimg.com/vi/JFBGcZD0scA/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBpL013lODSbb9CWFvHIpSIBZNXHA","img2":"https://i.ytimg.com/vi/JFBGcZD0scA/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBpL013lODSbb9CWFvHIpSIBZNXHA","link":"JFBGcZD0scA"},
+        {"nome":"SULTHAN - Official Trailer (Tamil) | Karthi, Rashmika | Vivek - Mervin | Bakkiyaraj Kannan | 4K","img1":"https://i.ytimg.com/vi/EWp7eDbJSCA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLKuRwlfie75oCYxuCpF9B8EWC6Q","img2":"https://i.ytimg.com/vi/EWp7eDbJSCA/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLKuRwlfie75oCYxuCpF9B8EWC6Q","link":"EWp7eDbJSCA"},
+        {"nome":"STOWAWAY Trailer (2021)","img1":"https://i.ytimg.com/vi/0E8qZnrgnik/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD2EYmguk5Ta_p0i5Y-pFCcjdf8tw","img2":"https://i.ytimg.com/vi/0E8qZnrgnik/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD2EYmguk5Ta_p0i5Y-pFCcjdf8tw","link":"0E8qZnrgnik"},
+        {"nome":"PARADISE CITY - Season 1 Final Trailer (Series OUT NOW) feat. new unreleased MGK + Travis  song","img1":"https://i.ytimg.com/vi/mzCRqoqGJuw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPmBZ072696paf4C77SsVEa4vzpw","img2":"https://i.ytimg.com/vi/mzCRqoqGJuw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPmBZ072696paf4C77SsVEa4vzpw","link":"mzCRqoqGJuw"},
+        {"nome":"CHAVES - O FILME (Trailer Oficial)","img1":"https://i.ytimg.com/vi/A1Z5q-IunSo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBkI17BE9gViWNFdNGd-GHZmN11fQ","img2":"https://i.ytimg.com/vi/A1Z5q-IunSo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBkI17BE9gViWNFdNGd-GHZmN11fQ","link":"A1Z5q-IunSo"},
+        {"nome":"Thymesia - Official Announcement Trailer","img1":"https://i.ytimg.com/vi/3HbZQ9KZD94/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAgjZaqZ2vFqrHDgYG1cZkH4jpaqQ","img2":"https://i.ytimg.com/vi/3HbZQ9KZD94/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAgjZaqZ2vFqrHDgYG1cZkH4jpaqQ","link":"3HbZQ9KZD94"},
+        {"nome":"Initiation Exclusive Trailer #1 (2021) | Movieclips Trailers","img1":"https://i.ytimg.com/vi/R6H9YxJg1BY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCTjf-01b7-Ntw-57YDcCYZzJAxzw","img2":"https://i.ytimg.com/vi/R6H9YxJg1BY/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCTjf-01b7-Ntw-57YDcCYZzJAxzw","link":"R6H9YxJg1BY"},
+        {"nome":"Revisão do Trailer de Thalaivi e Kangana Ranaut O Ator Vs A Personalidade Online","img1":"https://i.ytimg.com/vi/an49Ph6kJt4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJRD5jXxnBQmvq1y1lilRMv8DGdw","img2":"https://i.ytimg.com/vi/an49Ph6kJt4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJRD5jXxnBQmvq1y1lilRMv8DGdw","link":"an49Ph6kJt4"},
+        {"nome":"The Virtuoso - Trailer oficial exclusivo (2021) Anthony Hopkins, Anson Mount","img1":"https://i.ytimg.com/vi/LWA2r7X7z6Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBp9WHJpwh0bmGvfF4gLk8A7X74mQ","img2":"https://i.ytimg.com/vi/LWA2r7X7z6Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBp9WHJpwh0bmGvfF4gLk8A7X74mQ","link":"LWA2r7X7z6Y"}
+    ]
+
+    for(i of lista){
+        div = document.createElement('div')
+        div.classList.add("card")
+        div.innerHTML = `<img src='${i.img1}'><img src='${i.img2}'>`
+        div.i = i
+        div.onclick=function(){
+            ifr.src = ""
+            ifr.src = `https://www.youtube.com/embed/${this.i.link}`
+            caixa.checked=true
+        }
+        conteudo.appendChild(div)
+    }
+</script>
